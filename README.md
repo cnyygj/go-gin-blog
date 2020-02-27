@@ -67,4 +67,7 @@ go-gin-blog/
 
 #### 七、编写Demo
 
+#### 八、优化路由
+在routers目录下新疆router.go文件
+
 
