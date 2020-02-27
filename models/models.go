@@ -1,8 +1,8 @@
 package models
 
 import (
-	"log"
 	"fmt"
+	"log"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
