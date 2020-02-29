@@ -71,3 +71,25 @@ go-gin-blog/
 在routers目录下新疆router.go文件
 
 
+# day2
+#### 1、完成标签类的增删该接口的定义和编写
+    a、获取标签列表：GET("/tags")
+
+    b、新建标签：POST("/tags")
+
+    c、更新指定标签：PUT("/tags/:id")
+
+    d、删除指定标签：DELETE("/tags/:id")
+
+#### 2、引用包
+
+    a、beego-validation：本节采用的beego的表单验证库，中文文档：https://beego.me/docs/mvc/controller/validation.md。
+    
+    b、gorm，对开发人员友好的ORM框架，英文文档：http://gorm.io/docs/
+    
+    c、com，一个小而美的工具包
+
+
+
+
+
