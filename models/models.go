@@ -46,12 +46,15 @@ func init() {
 		log.Println(err)
 	}
 
+
+	// gorm默认表名是结构体名称的复数，如 type User struct {} // 默认表名是`users`
+	// 可以通过定义DefaultTableNameHandler对默认表名应用任何规则
 	gorm.DefaultTableNameHandler = func (db *gorm.DB, defaultTableName string) string  {
 		return tablePrefix + defaultTableName;
 	}
 
-	db.SingularTable(true)
-	db.LogMode(true)
+	db.SingularTable(true)			// 全局禁用表名复数，如果设置为true,`User`的默认表名为`user`,使用`TableName`设置的表名不受影响
+	db.LogMode(true)				// 启用Logger，显示详细日志
 	db.DB().SetMaxIdleConns(10)
 	db.DB().SetMaxOpenConns(100)
 }

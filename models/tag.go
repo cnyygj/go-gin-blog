@@ -42,7 +42,7 @@ func ExitsTagByName(name string) bool {
 }
 
 // 根据ID判断标签是否存在
-func ExitsTagById(id int) bool {
+func ExistTagById(id int) bool {
 	var tag Tag
 
 	db.Select("id").Where("id = ?", id).First(&tag)

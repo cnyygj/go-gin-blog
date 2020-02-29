@@ -99,7 +99,7 @@ func EditTag(c *gin.Context) {
 	if !valid.HasErrors() {
 		code = e.SUCCESS
 
-		if models.ExitsTagById(id) {
+		if models.ExistTagById(id) {
 			data := make(map[string]interface{})
 			data["modified_by"] = modifiedBy
 
@@ -136,7 +136,7 @@ func DeleteTag(c *gin.Context) {
 	if !valid.HasErrors() {
 		code = e.SUCCESS
 
-		if models.ExitsTagById(id) {
+		if models.ExistTagById(id) {
 			models.DeleteTag(id)
 		} else {
 			code = e.ERROR_NOT_EXIST_TAG

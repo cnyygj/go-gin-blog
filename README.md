@@ -88,6 +88,17 @@ go-gin-blog/
     b、gorm，对开发人员友好的ORM框架，英文文档：http://gorm.io/docs/
     
     c、com，一个小而美的工具包
+    
+#### 3、完成文章类接口定义和编写
+    a、获取文章列表：GET("/articles")
+    
+    b、获取指定文章：POST("/articles/:id")
+    
+    c、新建文章：POST("/articles")
+    
+    c、更新指定文章：PUT("/articles/:id")
+    
+    d、删除指定文章：DELETE("/articles/:id")
 
 
 
