@@ -1,0 +1,55 @@
+package util
+
+import (
+	"time"
+
+	jwt "github.com/dgrijalva/jwt-go"
+
+	"github.com/Songkun007/go-gin-blog/pkg/setting"
+)
+
+var jwtSecret = []byte(setting.JwtSecret)
+
+type Claims struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+	jwt.StandardClaims
+}
+
+// 生产Token
+func GenerateToken(username, password string) (string, error) {
+	nowtime := time.Now()
+
+	expireTime := nowtime.Add(3 * time.Hour)
+
+	// 创建一个声明
+	claims := Claims{
+		username,
+		password,
+		jwt.StandardClaims {
+			ExpiresAt : expireTime.Unix(),
+			Issuer : "gin-blog",
+		},
+	}
+
+	// 文档例子：https://godoc.org/github.com/dgrijalva/jwt-go#NewWithClaims
+	tokenClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	token, err := tokenClaims.SignedString(jwtSecret)
+
+	return token, err
+}
+
+// 解析Token
+func ParseToken(token string) (*Claims, error) {
+	tokenClaims, err := jwt.ParseWithClaims(token, &Claims{}, func(token *jwt.Token) (interface{}, error) {
+		return jwtSecret, nil
+	})
+
+	if tokenClaims != nil {
+		if claims, ok := tokenClaims.Claims.(*Claims); ok && tokenClaims.Valid {
+			return claims, nil
+		}
+	}
+
+	return nil, err
+}

@@ -100,6 +100,12 @@ go-gin-blog/
     
     d、删除指定文章：DELETE("/articles/:id")
 
+# day3
+    1、加入权限用户校验
+
+    2、加入token中间件验证（使用的JWT 文档[https://godoc.org/github.com/dgrijalva/jwt-go#SigningMethodHMAC]）
+    
+    3、测试通过
 
 
 

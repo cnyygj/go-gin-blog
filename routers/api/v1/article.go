@@ -96,6 +96,7 @@ func AddArticle(c *gin.Context) {
 	createdBy := c.Query("created_by")
 	state := com.StrTo(c.DefaultQuery("state", "0")).MustInt()
 
+	// 参数校验，另一种校验方式参考 v1/auth.go
 	valid := validation.Validation{}
 	valid.Min(tagId, 1, "tag_id").Message("标签ID必须大于0")
 	valid.Required(title, "title").Message("标题不能为空")

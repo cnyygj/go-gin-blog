@@ -5,6 +5,7 @@ import (
 
 	"github.com/Songkun007/go-gin-blog/pkg/setting"
 	"github.com/Songkun007/go-gin-blog/routers/api/v1"
+	"github.com/Songkun007/go-gin-blog/middleware/jwt"
 )
 
 func InitRouter() *gin.Engine {
@@ -16,7 +17,11 @@ func InitRouter() *gin.Engine {
 
 	gin.SetMode(setting.RunMode)
 
+	// 权限获取
+	r.GET("/auth", v1.GetAuth)
+
 	apiv1 := r.Group("/api/v1")
+	apiv1.Use(jwt.JWT())
 	{
 		// 获取标签列表
 		apiv1.GET("/tags", v1.GetTags)
