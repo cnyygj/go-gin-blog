@@ -11,6 +11,7 @@ import (
 	"github.com/Songkun007/go-gin-blog/pkg/setting"
 	"github.com/Songkun007/go-gin-blog/pkg/util"
 	"github.com/Songkun007/go-gin-blog/models"
+	"github.com/Songkun007/go-gin-blog/pkg/logging"
 )
 
 // 获取多个文章标签
@@ -65,6 +66,10 @@ func AddTag(c *gin.Context) {
 		} else {
 			code = e.ERROR_EXIST_TAG
 		}
+	} else {
+		for _, err := range valid.Errors {
+			logging.Info(err.Key, err.Message)
+		}
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -115,6 +120,10 @@ func EditTag(c *gin.Context) {
 		} else {
 			code = e.ERROR_NOT_EXIST_TAG
 		}
+	} else {
+		for _, err := range valid.Errors {
+			logging.Info(err.Key, err.Message)
+		}
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -140,6 +149,10 @@ func DeleteTag(c *gin.Context) {
 			models.DeleteTag(id)
 		} else {
 			code = e.ERROR_NOT_EXIST_TAG
+		}
+	} else {
+		for _, err := range valid.Errors {
+			logging.Info(err.Key, err.Message)
 		}
 	}
 

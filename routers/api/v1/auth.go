@@ -2,7 +2,6 @@ package v1
 
 import (
 	"net/http"
-	"log"
 	"github.com/gin-gonic/gin"
 
 	"github.com/astaxie/beego/validation"
@@ -10,6 +9,7 @@ import (
 	"github.com/Songkun007/go-gin-blog/pkg/e"
 	"github.com/Songkun007/go-gin-blog/pkg/util"
 	"github.com/Songkun007/go-gin-blog/models"
+	"github.com/Songkun007/go-gin-blog/pkg/logging"
 )
 
 // 定义参数校验规则
@@ -47,7 +47,7 @@ func GetAuth(c *gin.Context) {
 		}
 	} else {
 		for _, err := range valid.Errors {
-			log.Printf("err.Key: %s, err.Message: %s", err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
 		}
 	}
 
