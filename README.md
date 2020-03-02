@@ -106,6 +106,9 @@ go-gin-blog/
     2、加入token中间件验证（使用的JWT 文档[https://godoc.org/github.com/dgrijalva/jwt-go#SigningMethodHMAC]）
     
     3、测试通过
+    
+# day4
+    自定义log，并接入接口
 
 
 
