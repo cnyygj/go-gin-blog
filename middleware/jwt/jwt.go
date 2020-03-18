@@ -10,6 +10,8 @@ import (
 	"github.com/Songkun007/go-gin-blog/pkg/e"
 )
 
+// 中间件，请求方法引入中间件后，一个请求发过来，在函数调用链中，会先执行中间件的内容，真正请求的函数会被挂起（），
+// 中间件的内容验证通过后，才会继续请求被挂起的函数
 func JWT() gin.HandlerFunc {
 	return func (c *gin.Context) {
 		var code int
@@ -36,10 +38,12 @@ func JWT() gin.HandlerFunc {
 				"data" : data,
 			})
 
+			// Abort 在被调用的函数中阻止挂起函数被继续调用
 			c.Abort()
 			return
 		}
 
+		// Next() 调用的函数中的链中执行挂起的函数
 		c.Next()
 	}
 }
