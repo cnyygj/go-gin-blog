@@ -103,13 +103,23 @@ go-gin-blog/
 # day3
     1、加入权限用户校验
 
-    2、加入token中间件验证（使用的JWT 文档[https://godoc.org/github.com/dgrijalva/jwt-go#SigningMethodHMAC]）
+    2、加载jwt-go依赖包：go get -u github.com/dgrijalva/jwt-go
+    加入token中间件验证（使用的JWT 文档[https://godoc.org/github.com/dgrijalva/jwt-go#SigningMethodHMAC]）
     
     3、测试通过
     
 # day4
     1、自定义log，并接入接口
     2、使用endless包实现优雅重启
+    
+# day5
+    1、golang应用部署docker
+    2、修改配置文件app.ini，修改mysql的host配置项，改为mysql:3306，因为接下来我们启动应用容器时，会直接关联mysql容器
+    其中--link 容器名:别名（如：--link mysql_db:mysql），这里用别名（mysql）即可访问link的容器
+    2、编写Dockerfile文件，创建镜像：docker build -t go-gin-docker .
+    3、启动容器，同时关联mysql容器
+    docker run --link mysql_db:mysql --net backend_default  -p 8000:8000 gin-blog-docker
+    
     
 
 
