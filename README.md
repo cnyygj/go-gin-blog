@@ -117,7 +117,7 @@ go-gin-blog/
     2、修改配置文件app.ini，修改mysql的host配置项，改为mysql:3306，因为接下来我们启动应用容器时，会直接关联mysql容器
     其中--link 容器名:别名（如：--link mysql_db:mysql），这里用别名（mysql）即可访问link的容器
     2、编写Dockerfile文件，创建镜像：docker build -t go-gin-docker .
-    3、启动容器，同时关联mysql容器
+    3、启动容器，同时关联mysql容器 
     docker run --link mysql_db:mysql --net backend_default  -p 8000:8000 gin-blog-docker
     
     
