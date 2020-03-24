@@ -123,7 +123,8 @@ go-gin-blog/
 # day6
     1、重写GORM 的 Callbacks
     
-    
+# day7
+    1、增加定时任务调度，使用依赖：go get -u github.com/robfig/cron
 
 
 

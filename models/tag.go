@@ -71,9 +71,16 @@ func EditTag(id int, data interface{}) bool {
 	return true
 }
 
-// 删除标签
+// 删除单个标签
 func DeleteTag(id int) bool {
 	db.Where("id = ?", id).Delete(&Tag{})
+
+	return true
+}
+
+// 硬删除，硬删除要使用 Unscoped()
+func CleanAllTag() bool {
+	db.Unscoped().Where("deleted_on != ? ", 0).Delete(&Tag{})
 
 	return true
 }

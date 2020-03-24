@@ -90,9 +90,16 @@ func AddArticle(data map[string]interface{}) bool {
 	return true
 }
 
-// 删除文章
+// 删除单篇文章
 func DeleteArticle(id int) bool {
 	db.Where("id = ?", id).Delete(&Article{})
+
+	return true
+}
+
+// 硬删除，硬删除要使用 Unscoped()
+func CleanAllArticle() bool {
+	db.Unscoped().Where("deleted_on != ?", 0).Delete(&Article{})
 
 	return true
 }
