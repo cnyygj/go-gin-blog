@@ -1,8 +1,8 @@
 package models
 
 import (
-	"time"
-	"github.com/jinzhu/gorm"
+	_ "time"
+	_ "github.com/jinzhu/gorm"
 )
 
 type Article struct {
@@ -56,7 +56,7 @@ func GetArticles(pageNum int, pageSize int, maps interface{}) (articles []Articl
 
 // 根据ID获取指定文章
 func GetArticle(id int) (article Article) {
-	db.Where("id = ?", id).First(&article)
+	db.Where("id = ? AND deleted_on = ?", id, 0).First(&article)
 	db.Model(&article).Related(&article.Tag)
 
 	// 两张表是如何关联起来的？
@@ -98,14 +98,14 @@ func DeleteArticle(id int) bool {
 }
 
 // 回调，自动更新添加时间和更新时间
-func (article *Article) BeforeCreate(scope *gorm.Scope) error {
-	scope.SetColumn("CreatedOn", time.Now().Unix())
+//func (article *Article) BeforeCreate(scope *gorm.Scope) error {
+//	scope.SetColumn("CreatedOn", time.Now().Unix())
+//
+//	return nil
+//}
 
-	return nil
-}
-
-func (article *Article) BeforeUpdate(scope *gorm.Scope) error {
-	scope.SetColumn("ModifiedOn", time.Now().Unix())
-
-	return nil
-}
+//func (article *Article) BeforeUpdate(scope *gorm.Scope) error {
+//	scope.SetColumn("ModifiedOn", time.Now().Unix())
+//
+//	return nil
+//}

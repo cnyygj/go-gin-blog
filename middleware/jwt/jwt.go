@@ -8,6 +8,7 @@ import (
 
 	"github.com/Songkun007/go-gin-blog/pkg/util"
 	"github.com/Songkun007/go-gin-blog/pkg/e"
+	"github.com/Songkun007/go-gin-blog/pkg/logging"
 )
 
 // 中间件，请求方法引入中间件后，一个请求发过来，在函数调用链中，会先执行中间件的内容，真正请求的函数会被挂起（），
@@ -32,6 +33,7 @@ func JWT() gin.HandlerFunc {
 		}
 
 		if code != e.SUCCESS {
+			logging.Info("token", "参数缺失")
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"code" : code,
 				"msg" : e.GetMsg(code),
