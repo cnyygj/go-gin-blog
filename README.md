@@ -120,6 +120,9 @@ go-gin-blog/
     3、启动容器，同时关联mysql容器
     docker run --link mysql_db:mysql --net backend_default  -p 8000:8000 gin-blog-docker
     
+# day6
+    1、重写GORM 的 Callbacks
+    
     
 
 
