@@ -15,7 +15,7 @@ func InitRouter() *gin.Engine {
 
 	r.Use(gin.Recovery())
 
-	gin.SetMode(setting.RunMode)
+	gin.SetMode(setting.ServerSetting.RunMode)
 
 	// 权限获取
 	r.GET("/auth", v1.GetAuth)

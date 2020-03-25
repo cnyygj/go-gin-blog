@@ -5,41 +5,42 @@ import (
 	"os"
 	"time"
 	"fmt"
-	"log"
-)
 
-var (
-	LogSavePath = "runtime/logs/"
-	LogSaveName = "log"
-	LogFileExt = "log"
-	TimeFormat = "20060102"
+	"github.com/Songkun007/go-gin-blog/pkg/setting"
+	"github.com/Songkun007/go-gin-blog/pkg/file"
 )
 
 // 获取日志存储路径
 func getLogFilePath() string {
-	return fmt.Sprintf("%s", LogSavePath)	// %s - 直接输出原始字符串
+	return fmt.Sprintf("%s%s", setting.AppSetting.RuntimeRootPath, setting.AppSetting.LogSavePath)	// %s - 直接输出原始字符串
 }
 
-// 获取日志文件的全路径
-func getLogFileFullPath() string {
-	prefixPath := getLogFilePath()
-	suffixPath := fmt.Sprintf("%s%s.%s", LogSaveName, time.Now().Format(TimeFormat), LogFileExt)
-
-	return fmt.Sprintf("%s%s", prefixPath, suffixPath)
+// 获取日志名
+func getLogFileName() string {
+	return fmt.Sprintf("%s%s.%s",
+		setting.AppSetting.LogSaveName, time.Now().Format(setting.AppSetting.TimeFormat),
+		setting.AppSetting.LogFileExt,
+	)
 }
 
 // 获取文件句柄
-func openLogFile(filePath string) *os.File {
-	_, err := os.Stat(filePath)
-
-	// os.IsNotExist：能够接受ErrNotExist、syscall的一些错误，它会返回一个布尔值，能够得知文件不存在或目录不存在
-	// os.IsPermission：能够接受ErrPermission、syscall的一些错误，它会返回一个布尔值，能够得知权限是否满足
-	switch {
-	case os.IsNotExist(err) :
-		mkDir()
-	case os.IsPermission(err) :
-		log.Fatalf("Permission :%v", err)
+func openLogFile(fileName, filePath string) (*os.File, error) {
+	dir, err := os.Getwd()
+	if err != nil {
+		return nil, fmt.Errorf("os.Getwd err: %v", err)
 	}
+
+	src := dir + "/" + filePath
+	perm := file.CheckPermission(src)
+	if perm == true {
+		return nil, fmt.Errorf("file.CheckPermission Permission denied src: %s", src)
+	}
+
+	err = file.IsNotExistMkDir(src)
+	if err != nil {
+		return nil, fmt.Errorf("file.IsNotExistMkDir src: %s, err: %v", src, err)
+	}
+
 
 	/* os.OpenFile：调用文件，支持传入文件名称、指定的模式调用文件、文件权限，返回的文件的方法可以用于I/O。
 	   如果出现错误，则为*PathError
@@ -58,23 +59,11 @@ func openLogFile(filePath string) *os.File {
 	)
 	   0644 代表文件的模式和权限位，r(4)、w(2)、x(1)
 	*/
-	handle, err := os.OpenFile(filePath, os.O_APPEND | os.O_CREATE | os.O_WRONLY, 0644)
+	f, err := os.OpenFile(src + fileName, os.O_APPEND | os.O_CREATE | os.O_WRONLY, 0644)
 
 	if err != nil {
-		log.Fatalf("Fail to OpenFile :%v", err)
+		return nil, fmt.Errorf("Fail to OpenFile :%v", err)
 	}
 
-	return handle
-}
-
-// 创建目录
-// os.Getwd：返回与当前目录对应的根路径名
-// os.MkdirAll：创建对应的目录以及所需的子目录，若成功则返回nil，否则返回error
-func mkDir() {
-	dir, _ := os.Getwd()
-	err := os.MkdirAll(dir + "/" + getLogFilePath(), os.ModePerm)
-
-	if err != nil {
-		panic(err)
-	}
+	return f, nil
 }

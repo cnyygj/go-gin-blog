@@ -23,7 +23,7 @@ type Article struct {
 // 根据ID判断文章是否存在
 func ExistArticleById(id int) bool {
 	var article Article
-	db.Select("id").Where("id = ?", id).First(&article)
+	db.Select("id").Where("id = ? AND deleted_on = ?", id, 0).First(&article)
 
 	if article.ID > 0 {
 		return true
@@ -56,7 +56,7 @@ func GetArticles(pageNum int, pageSize int, maps interface{}) (articles []Articl
 
 // 根据ID获取指定文章
 func GetArticle(id int) (article Article) {
-	db.Where("id = ? AND deleted_on = ?", id, 0).First(&article)
+	db.Where("id = ?", id).First(&article)
 	db.Model(&article).Related(&article.Tag)
 
 	// 两张表是如何关联起来的？

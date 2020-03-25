@@ -29,9 +29,14 @@ const (
 	FATAL
 )
 
-func init() {
-	filePath := getLogFileFullPath()	// 获取文件全路径
-	F = openLogFile(filePath)			// 获取文件句柄
+func Setup() {
+	var err error
+	filePath := getLogFilePath()						// 获取日志存储路径
+	fileName := getLogFileName()						// 获取日志名
+	F, err = openLogFile(fileName, filePath)			// 获取文件句柄
+	if err != nil {
+		log.Fatalln(err)
+	}
 
 	// 创建一个logger 参数1：日志写入目的地， 参数2：每条日志的前缀， 参数3：日志属性
 	logger = log.New(F, DefaultPrefix, log.LstdFlags)

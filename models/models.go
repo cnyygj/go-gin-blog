@@ -20,39 +20,23 @@ type Model struct {
 	DeletedOn int `json:"deleted_on"`
 }
 
-func init() {
-	var (
-		err error
-		dbType, dbName, user, password, host, tablePrefix string
-	)
+func Setup() {
 
-	sec, err := setting.Cfg.GetSection("database")
-	if err != nil {
-		log.Fatal(2, "Fail to get section 'database': %v", err)
-	}
-
-	dbType = sec.Key("TYPE").String()
-	dbName = sec.Key("NAME").String()
-	user = sec.Key("USER").String()
-	password = sec.Key("PASSWORD").String()
-	host = sec.Key("HOST").String()
-	tablePrefix = sec.Key("TABLE_PREFIX").String()
-
-	db, err = gorm.Open(dbType, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
-		user,
-		password,
-		host,
-		dbName))
+	var err error
+	db, err = gorm.Open(setting.DatabaseSetting.Type, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
+		setting.DatabaseSetting.User,
+		setting.DatabaseSetting.Password,
+		setting.DatabaseSetting.Host,
+		setting.DatabaseSetting.Name))
 
 	if err != nil {
-		log.Println(err)
+		log.Fatalf("models.Setup err: %v", err)
 	}
-
 
 	// gorm默认表名是结构体名称的复数，如 type User struct {} // 默认表名是`users`
 	// 可以通过定义DefaultTableNameHandler对默认表名应用任何规则
 	gorm.DefaultTableNameHandler = func (db *gorm.DB, defaultTableName string) string  {
-		return tablePrefix + defaultTableName
+		return setting.DatabaseSetting.TablePrefix + defaultTableName
 	}
 
 	db.SingularTable(true)			// 全局禁用表名复数，如果设置为true,`User`的默认表名为`user`,使用`TableName`设置的表名不受影响
@@ -79,7 +63,6 @@ func init() {
 
 	// 注册回调
 	db.Callback().Delete().Replace("gorm:delete", deleteCallback)
-
 }
 
 // updateTimeStampForCreateCallback will set `CreatedOn`, `ModifiedOn` when creating
