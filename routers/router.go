@@ -1,11 +1,14 @@
 package routers
 
 import (
+	"github.com/Songkun007/go-gin-blog/routers/api"
 	"github.com/gin-gonic/gin"
+	"net/http"
 
+	"github.com/Songkun007/go-gin-blog/middleware/jwt"
 	"github.com/Songkun007/go-gin-blog/pkg/setting"
 	"github.com/Songkun007/go-gin-blog/routers/api/v1"
-	"github.com/Songkun007/go-gin-blog/middleware/jwt"
+	"github.com/Songkun007/go-gin-blog/pkg/upload"
 )
 
 func InitRouter() *gin.Engine {
@@ -17,8 +20,13 @@ func InitRouter() *gin.Engine {
 
 	gin.SetMode(setting.ServerSetting.RunMode)
 
+	// 获取静态文件
+	r.StaticFS("/upload/images", http.Dir(upload.GetImageFullPath()))
+
 	// 权限获取
-	r.GET("/auth", v1.GetAuth)
+	r.GET("/auth", api.GetAuth)
+	// 上传图片
+	r.POST("/upload", api.UploadImage)
 
 	apiv1 := r.Group("/api/v1")
 	apiv1.Use(jwt.JWT())

@@ -59,7 +59,7 @@ func openLogFile(fileName, filePath string) (*os.File, error) {
 	)
 	   0644 代表文件的模式和权限位，r(4)、w(2)、x(1)
 	*/
-	f, err := os.OpenFile(src + fileName, os.O_APPEND | os.O_CREATE | os.O_WRONLY, 0644)
+	f, err := file.Open(src + fileName, os.O_APPEND | os.O_CREATE | os.O_WRONLY, 0644)
 
 	if err != nil {
 		return nil, fmt.Errorf("Fail to OpenFile :%v", err)

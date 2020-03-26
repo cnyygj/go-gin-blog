@@ -31,6 +31,7 @@ replace (
 	github.com/Songkun007/go-gin-blog/pkg/e => /data1/htdocs/go_project/src/github.com/Songkun007/go-gin-blog/pkg/e
 	github.com/Songkun007/go-gin-blog/pkg/file => /data1/htdocs/go_project/src/github.com/Songkun007/go-gin-blog/pkg/file
 	github.com/Songkun007/go-gin-blog/pkg/setting => /data1/htdocs/go_project/src/github.com/Songkun007/go-gin-blog/pkg/setting
+	github.com/Songkun007/go-gin-blog/pkg/upload => /data1/htdocs/go_project/src/github.com/Songkun007/go-gin-blog/pkg/upload
 	github.com/Songkun007/go-gin-blog/pkg/util => /data1/htdocs/go_project/src/github.com/Songkun007/go-gin-blog/pkg/util
 	github.com/Songkun007/go-gin-blog/routers => /data1/htdocs/go_project/src/github.com/Songkun007/go-gin-blog/routers
 )

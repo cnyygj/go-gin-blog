@@ -11,12 +11,13 @@ type Article struct {
 	TagID int `json:"tag_id" gorm:"index"`
 	Tag   Tag `json:"tag"`	// 实际是一个嵌套的struct，它利用TagID与Tag模型相互关联，在执行查询的时候，能够达到Article、Tag关联查询的功能
 
-	Title string `json:"title"`
-	Desc string `json:"desc"`
-	Content string `json:"content"`
-	CreatedBy string `json:"created_by"`
-	ModifiedBy string `json:"modified_by"`
-	State int `json:"state"`
+	Title 			string `json:"title"`
+	Desc 			string `json:"desc"`
+	Content 		string `json:"content"`
+	CoverImageUrl 	string `json:"conver_image_url"`
+	CreatedBy 		string `json:"created_by"`
+	ModifiedBy 		string `json:"modified_by"`
+	State 			int `json:"state"`
 }
 
 
@@ -76,12 +77,13 @@ func EditArticle(id int, data interface{}) bool {
 // 新增文章
 func AddArticle(data map[string]interface{}) bool {
 	db.Create(&Article{
-		TagID		:      data["tag_id"].(int),
-		Title		:      data["title"].(string),
-		Desc		:      data["desc"].(string),
-		Content		:	   data["content"].(string),
-		CreatedBy	:	   data["created_by"].(string),
-		State		:      data["state"].(int),
+		TagID			:      data["tag_id"].(int),
+		Title			:      data["title"].(string),
+		Desc			:      data["desc"].(string),
+		Content			:	   data["content"].(string),
+		CreatedBy		:	   data["created_by"].(string),
+		State			:      data["state"].(int),
+		CoverImageUrl	:	   data["cover_image_url"].(string),
 	})
 
 	// v.(I) 为类型断言

@@ -53,6 +53,11 @@ func Info(v ...interface{}) {
 	logger.Println(v)
 }
 
+func Warn(v ...interface{}) {
+	setPrefix(WARNING)
+	logger.Println(v)
+}
+
 func Fatal(v ...interface{}) {
 	setPrefix(FATAL)
 	logger.Fatalln(v)

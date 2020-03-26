@@ -19,7 +19,7 @@ func GetExt(fileName string) string {
 	return path.Ext(fileName)
 }
 
-// 检查文件是否存在
+// 检查文件/目录是否存在
 func CheckNotExist(src string) bool {
 	_, err := os.Stat(src)
 
