@@ -5,10 +5,15 @@ import (
 	"log"
 
 	"github.com/robfig/cron"
+	"github.com/Songkun007/go-gin-blog/pkg/setting"
 	"github.com/Songkun007/go-gin-blog/models"
 )
 
 func main() {
+
+	setting.Setup()
+	models.Setup()
+	
 	log.Println("Starting...")
 
 	c := cron.New()
