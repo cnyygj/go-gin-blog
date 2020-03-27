@@ -11,6 +11,7 @@ require (
 	github.com/go-playground/universal-translator v0.17.0 // indirect
 	github.com/go-sql-driver/mysql v1.5.0 // indirect
 	github.com/golang/protobuf v1.3.4 // indirect
+	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/jinzhu/gorm v1.9.12
 	github.com/json-iterator/go v1.1.9 // indirect
 	github.com/leodido/go-urn v1.2.0 // indirect
@@ -30,6 +31,7 @@ replace (
 	github.com/Songkun007/go-gin-blog/models => /data1/htdocs/go_project/src/github.com/Songkun007/go-gin-blog/models
 	github.com/Songkun007/go-gin-blog/pkg/e => /data1/htdocs/go_project/src/github.com/Songkun007/go-gin-blog/pkg/e
 	github.com/Songkun007/go-gin-blog/pkg/file => /data1/htdocs/go_project/src/github.com/Songkun007/go-gin-blog/pkg/file
+	github.com/Songkun007/go-gin-blog/pkg/gredis => /data1/htdocs/go_project/src/github.com/Songkun007/go-gin-blog/pkg/gredis
 	github.com/Songkun007/go-gin-blog/pkg/setting => /data1/htdocs/go_project/src/github.com/Songkun007/go-gin-blog/pkg/setting
 	github.com/Songkun007/go-gin-blog/pkg/upload => /data1/htdocs/go_project/src/github.com/Songkun007/go-gin-blog/pkg/upload
 	github.com/Songkun007/go-gin-blog/pkg/util => /data1/htdocs/go_project/src/github.com/Songkun007/go-gin-blog/pkg/util

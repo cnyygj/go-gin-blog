@@ -10,6 +10,7 @@ import (
 	"github.com/Songkun007/go-gin-blog/pkg/util"
 	"github.com/Songkun007/go-gin-blog/models"
 	"github.com/Songkun007/go-gin-blog/pkg/logging"
+	"github.com/Songkun007/go-gin-blog/pkg/gredis"
 )
 
 // 定义参数校验规则
@@ -41,6 +42,11 @@ func GetAuth(c *gin.Context) {
 			} else {
 				data["token"] = token
 				code = e.SUCCESS
+			}
+
+			err = gredis.Set("token", data, 0)
+			if err != nil {
+				logging.Warn("redis set fail, ", err)
 			}
 		} else {
 			code = e.ERROR_AUTH

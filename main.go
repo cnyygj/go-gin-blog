@@ -12,6 +12,7 @@ import (
 	"github.com/Songkun007/go-gin-blog/pkg/setting"
 	"github.com/Songkun007/go-gin-blog/models"
 	"github.com/Songkun007/go-gin-blog/pkg/logging"
+	"github.com/Songkun007/go-gin-blog/pkg/gredis"
 )
 
 func main() {
@@ -20,6 +21,7 @@ func main() {
 	setting.Setup()
 	models.Setup()
 	logging.Setup()
+	gredis.Setup()
 
 	// 方式一，常规启动
 	//router := routers.InitRouter()
