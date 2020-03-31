@@ -33,7 +33,7 @@ func JWT() gin.HandlerFunc {
 		}
 
 		if code != e.SUCCESS {
-			logging.Info("token", "参数缺失")
+			logging.Info("token参数有误")
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"code" : code,
 				"msg" : e.GetMsg(code),

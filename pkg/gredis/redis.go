@@ -43,7 +43,20 @@ func Setup() error {
 	}
 	return nil
 }
+// Exists check a key
+func Exists(key string) bool {
+	conn := RedisConn.Get()
+	defer conn.Close()
 
+	exists, err := redis.Bool(conn.Do("EXISTS", key))
+	if err != nil {
+		return false
+	}
+
+	return exists
+}
+
+// set a key/value
 func Set(key string, data interface{}, time int) error {
 	conn := RedisConn.Get()
 	defer conn.Close()
@@ -67,6 +80,7 @@ func Set(key string, data interface{}, time int) error {
 	return nil
 }
 
+// get a key
 func Get(key string) ([]byte, error) {
 	conn := RedisConn.Get()
 	defer conn.Close()
@@ -80,6 +94,7 @@ func Get(key string) ([]byte, error) {
 	return reply, nil
 }
 
+// delete a key
 func Delete(key string) (bool, error) {
 	conn := RedisConn.Get()
 	defer conn.Close()
@@ -87,6 +102,7 @@ func Delete(key string) (bool, error) {
 	return redis.Bool(conn.Do("DEL", key))
 }
 
+// batch delete
 func LikeDeletes(key string) error {
 	conn := RedisConn.Get()
 	defer conn.Close()

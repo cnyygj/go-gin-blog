@@ -125,6 +125,9 @@ go-gin-blog/
     
 # day7
     1、增加定时任务调度，使用依赖：go get -u github.com/robfig/cron
+    
+# day8
+    增加redis缓存，并优化代码结构
 
 
 
