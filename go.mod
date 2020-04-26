@@ -3,6 +3,8 @@ module github.com/Songkun007/go-gin-blog
 go 1.13
 
 require (
+	github.com/360EntSecGroup-Skylar/excelize v1.4.1
+	github.com/EDDYCJY/go-gin-example v0.0.0-20200322073714-2b22b57dfce9 // indirect
 	github.com/astaxie/beego v1.12.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
@@ -17,6 +19,7 @@ require (
 	github.com/leodido/go-urn v1.2.0 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect
 	github.com/robfig/cron v1.2.0 // indirect
+	github.com/tealeg/xlsx v1.0.5
 	github.com/unknwon/com v1.0.1
 	golang.org/x/sys v0.0.0-20200223170610-d5e6a3e2c0ae // indirect
 	gopkg.in/go-playground/validator.v9 v9.31.0 // indirect

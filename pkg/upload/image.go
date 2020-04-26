@@ -16,7 +16,7 @@ import (
 
 // 获取图片地址
 func GetImageFullUrl(name string) string {
-	return setting.AppSetting.ImagePrefixUrl + "/" + GetImagePath() + name
+	return setting.AppSetting.PrefixUrl + "/" + GetImagePath() + name
 }
 
 // 获取md5加密后的文件名

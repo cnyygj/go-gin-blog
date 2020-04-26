@@ -9,6 +9,7 @@ import (
 	"github.com/Songkun007/go-gin-blog/pkg/setting"
 	"github.com/Songkun007/go-gin-blog/routers/api/v1"
 	"github.com/Songkun007/go-gin-blog/pkg/upload"
+	"github.com/Songkun007/go-gin-blog/pkg/export"
 )
 
 func InitRouter() *gin.Engine {
@@ -22,6 +23,7 @@ func InitRouter() *gin.Engine {
 
 	// 获取静态文件
 	r.StaticFS("/upload/images", http.Dir(upload.GetImageFullPath()))
+	r.StaticFS("/export", http.Dir(export.GetExcelFullPath()))
 
 	// 权限获取
 	r.GET("/auth", api.GetAuth)
@@ -57,6 +59,12 @@ func InitRouter() *gin.Engine {
 
 		// 删除指定文章
 		apiv1.DELETE("/articles/:id", v1.DeleteArticle)
+
+		// 导出标签
+		r.POST("/tags/export", v1.ExportTag)
+		//导入标签
+		r.POST("/tags/import", v1.ImportTag)
+
 	}
 
 	return r

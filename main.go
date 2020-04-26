@@ -3,16 +3,16 @@ package main
 import (
 	"fmt"
 	"log"
-	_"net/http"
+	_ "net/http"
 	"syscall"
 
 	"github.com/fvbock/endless"
 
-	"github.com/Songkun007/go-gin-blog/routers"
-	"github.com/Songkun007/go-gin-blog/pkg/setting"
 	"github.com/Songkun007/go-gin-blog/models"
-	"github.com/Songkun007/go-gin-blog/pkg/logging"
 	"github.com/Songkun007/go-gin-blog/pkg/gredis"
+	"github.com/Songkun007/go-gin-blog/pkg/logging"
+	"github.com/Songkun007/go-gin-blog/pkg/setting"
+	"github.com/Songkun007/go-gin-blog/routers"
 )
 
 func main() {
